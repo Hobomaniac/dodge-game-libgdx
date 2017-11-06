@@ -1,0 +1,15 @@
+Dodge Game
+
+A 2d black-and-white pixel art game, in which you dodge arrows, while collecting wood to build small
+wood walls to help you survive longer.
+
+Controls
+--------
+W, A, S, D = Up, Left, Down, Right
+E -> Hold down to destroy wood or build walls. (In menu, you use it to select choices.)
+Space -> When you have 7 pieces of wood you can create a wall.
+--------
+
+There are executables in "/desktop/build/libs/". Latest build DodgeGame_1.2.jar.
+
+Created using libgdx.
