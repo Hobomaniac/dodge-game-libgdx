@@ -10,6 +10,6 @@ E -> Hold down to destroy wood or build walls. (In menu, you use it to select ch
 Space -> When you have 7 pieces of wood you can create a wall.
 --------
 
-There are executables in "/desktop/build/libs/". Latest build DodgeGame_1.2.jar.
+There is an executable in "/built_game". Latest build DodgeGame_1.2.jar.
 
 Created using libgdx.
