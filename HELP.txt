@@ -19,6 +19,8 @@ Controls
 Press the num 2 in main menu to add TWO players.
 --------
 
+*Erase score.txt, to reset scores.
+
 There is an executable in "/built_game". Latest build DodgeGame_1.3.jar.
 
 Created using libgdx.
