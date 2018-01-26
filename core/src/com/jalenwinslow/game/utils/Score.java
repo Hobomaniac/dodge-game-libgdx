@@ -38,15 +38,15 @@ public class Score {
         if (handler.getGameState().getWallGen().getHighestNumberOfShortWallsDestroyed() > highestNumberOfShortWallsDestroyed) 
             highestNumberOfShortWallsDestroyed = handler.getGameState().getWallGen().getHighestNumberOfShortWallsDestroyed();
         
-        if (handler.getGameState().getPlayer().getHighestNumberOfTallWallsCreated() > highestNumberOfTallWallsCreated) 
-            highestNumberOfTallWallsCreated = handler.getGameState().getPlayer().getHighestNumberOfTallWallsCreated();
+        if (handler.getPlayers().getPlayer1().getHighestNumberOfTallWallsCreated() > highestNumberOfTallWallsCreated) 
+            highestNumberOfTallWallsCreated = handler.getPlayers().getPlayer1().getHighestNumberOfTallWallsCreated();
         if (handler.getGameObjectHandler().getHighestNumberOfTallWallsAtOnce() > highestNumberOfTallWallsAtOnce) 
             highestNumberOfTallWallsAtOnce = handler.getGameObjectHandler().getHighestNumberOfTallWallsAtOnce();
-        if (handler.getGameState().getPlayer().getHighestNumberOfTallWallsDestroyed() > highestNumberOfTallWallsDestroyed) 
-            highestNumberOfTallWallsDestroyed = handler.getGameState().getPlayer().getHighestNumberOfTallWallsDestroyed();
+        if (handler.getPlayers().getPlayer1().getHighestNumberOfTallWallsDestroyed() > highestNumberOfTallWallsDestroyed) 
+            highestNumberOfTallWallsDestroyed = handler.getPlayers().getPlayer1().getHighestNumberOfTallWallsDestroyed();
         
-        if (handler.getGameState().getPlayer().getNumberOfWoodPickedUp() > highestNumberOfWoodPickedUp) 
-            highestNumberOfWoodPickedUp = handler.getGameState().getPlayer().getNumberOfWoodPickedUp();
+        if (handler.getPlayers().getPlayer1().getNumberOfWoodPickedUp() > highestNumberOfWoodPickedUp) 
+            highestNumberOfWoodPickedUp = handler.getPlayers().getPlayer1().getNumberOfWoodPickedUp();
     }
     
     public void getScoresFromFile() {

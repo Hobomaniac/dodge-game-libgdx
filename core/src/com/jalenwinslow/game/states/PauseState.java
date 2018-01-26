@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.jalenwinslow.game.Handler;
 import com.jalenwinslow.game.Main;
+import com.jalenwinslow.game.gameobjects.Player;
 
 public class PauseState extends State {
     
@@ -31,9 +32,12 @@ public class PauseState extends State {
     
     @Override
     public void update(float dt) {
-        if (Gdx.input.isKeyJustPressed(Keys.P)) {
-            State.setCurrenState(handler.getGameState());
-            dispose();
+        for (Player player : handler.getPlayers().getPlayers()) {
+            if (player.returnPausePressed()) {
+                State.setCurrenState(handler.getGameState());
+                handler.getGameState().setPause(false);
+                dispose();
+            }
         }
     }
     

@@ -1,6 +1,8 @@
 package com.jalenwinslow.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,6 +16,7 @@ public class GameOverState extends State {
     //--- Propreties
     private Texture gameOverTexture;
     private BitmapFont font;
+    private float elapsedTime;
     
     //--- Constructor
     public GameOverState(Handler handler) {
@@ -32,13 +35,16 @@ public class GameOverState extends State {
         font = new BitmapFont(Gdx.files.internal("customFont4.fnt"));
         font.getData().setScale(3, 3);
         font.setColor(Color.WHITE);
+        elapsedTime = 0;
     }
     
     @Override
     public void update(float dt) {
-        if (Gdx.input.justTouched()) {
+        elapsedTime += dt;
+        if (elapsedTime > 1 && Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             State.setCurrenState(handler.getMenuState());
             State.getCurrentState().init();
+            handler.getPlayers().resetPlayers();
             dispose();
         }
     }
@@ -46,7 +52,7 @@ public class GameOverState extends State {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(gameOverTexture, 0, 0, Main.WIDTH, Main.HEIGHT);
-        font.draw(batch, "CLICK LEFT TO CONTINUE", 16, Main.HEIGHT-16);
+        font.draw(batch, "PRESS ANY KEY TO CONTINUE", 16, Main.HEIGHT-16);
         font.draw(batch, "SURVIVED FOR " + String.valueOf(handler.getGameState().getTimer().getTime()) + " SEC", Main.WIDTH/2, Main.HEIGHT/2 - 64, 0, Align.center, false);
     }
     

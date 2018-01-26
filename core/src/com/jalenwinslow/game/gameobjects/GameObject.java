@@ -44,5 +44,11 @@ public abstract class GameObject {
     public int getDepth() {return depth;}
     public Rectangle getBounds() {return bounds;}
     
+    public void setX(double x) {this.x = x;}
+    public void setY(double y) {this.y = y;}
+    public void setPosition(double x, double y) {this.x = x; this.y = y;}
+    public void setDepth(int depth) {this.depth = depth;}
+    public void setBounds(Rectangle bounds) {this.bounds = bounds;}
+    
     
 }

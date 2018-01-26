@@ -4,13 +4,15 @@
   <auxiliary>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group/>
-    </open-files>
-    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group>
-        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/desktop/src/com/jalenwinslow/game/desktop/DesktopLauncher.java</file>
+        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/core/src/com/jalenwinslow/game/states/GameState.java</file>
+        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/core/src/com/jalenwinslow/game/utils/Players.java</file>
+        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/core/src/com/jalenwinslow/game/gameobjects/Player.java</file>
+        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/core/src/com/jalenwinslow/game/Main.java</file>
+        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/core/src/com/jalenwinslow/game/states/MenuState.java</file>
+        <file>file:/C:/Users/jalen/Programming/Netbeans%20Workspace/Summer%202017/DodgeGame/core/src/com/jalenwinslow/game/states/GameOverState.java</file>
       </group>
     </open-files>
+    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
   </auxiliary>
 </gradle-project-properties>

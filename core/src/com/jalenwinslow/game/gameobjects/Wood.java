@@ -62,11 +62,15 @@ public class Wood extends GameObject {
     public String toString() {return "Wood";}
     
     public void boundCollision() {
-        if (bounds.overlaps(handler.getGameState().getPlayer().getBounds())) {
-            handler.getGameState().getPlayer().setWood(handler.getGameState().getPlayer().getWood() + 1);
-            handler.getGameState().getPlayer().setNumberOfWoodPickedUp(handler.getGameState().getPlayer().getNumberOfWoodPickedUp() + 1);
-            handler.getGameObjectHandler().getGameObjects().removeValue(this, false);
+        for (Player player : handler.getPlayers().getPlayers()) {
+            if (bounds.overlaps(player.getBounds()) && !player.isDead()) {
+                player.setWood(player.getWood() + 1);
+                player.setNumberOfWoodPickedUp(player.getNumberOfWoodPickedUp() + 1);
+                handler.getGameObjectHandler().getGameObjects().removeValue(this, false);
+                break;
+            }
         }
+        
     }
     
     

@@ -51,6 +51,7 @@ public class HealthBar extends GameObject {
     public float getHealth() {return health;}
     public float getTotalHealth() {return totalHealth;}
     
+    
     public void setHealth(float health) {this.health = health;}
     public void setTotalHealth(float totalHealth) {this.totalHealth = totalHealth;}
     

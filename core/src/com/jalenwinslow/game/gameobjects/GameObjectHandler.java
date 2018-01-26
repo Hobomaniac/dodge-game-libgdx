@@ -57,7 +57,7 @@ public class GameObjectHandler {
     
     public void sort() {
         for (int i = 0; i < gameObjects.size - 1; i++) {
-            if (gameObjects.get(i).depth <= gameObjects.get(i+1).depth) {
+            if (gameObjects.get(i).depth < gameObjects.get(i+1).depth) {
                 gameObjects.swap(i, i+1);
             }
         }

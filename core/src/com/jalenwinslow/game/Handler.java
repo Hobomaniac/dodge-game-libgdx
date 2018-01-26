@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jalenwinslow.game.gameobjects.GameObjectHandler;
 import com.jalenwinslow.game.states.*;
+import com.jalenwinslow.game.utils.Players;
 import com.jalenwinslow.game.utils.Score;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Handler {
     
     private State menuState, gameState, gameOverState, pauseState, exitState;
     private GameObjectHandler gameObjectHandler;
+    private Players players;
     
     private BitmapFont font;
     private String message = "";
@@ -39,6 +41,7 @@ public class Handler {
         exitState = new ExitState(this);
         
         gameObjectHandler = new GameObjectHandler(this);
+        players = new Players(this);
         
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -104,6 +107,7 @@ public class Handler {
     public PauseState getPauseState() {return (PauseState)pauseState;}
     public ExitState getExitState() {return (ExitState)exitState;}
     public GameObjectHandler getGameObjectHandler() {return gameObjectHandler;}
+    public Players getPlayers() {return players;}
     public FileHandle getScoreFile() {return scoreFile;}
     public Score getScore() {return score;}
     

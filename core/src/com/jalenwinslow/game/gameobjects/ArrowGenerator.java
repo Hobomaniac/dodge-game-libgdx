@@ -19,6 +19,7 @@ public class ArrowGenerator extends GameObject {
     private double currentDeployTime;
     private int highestAmountOfArrowsAtOnce;
     private int amountOfArrowsCreated;
+    private int arrowDamage;
     
     private Random rand;
     private TextureRegion[][] arrowTextures;
@@ -34,6 +35,7 @@ public class ArrowGenerator extends GameObject {
         currentDeployTime = ARROW_DEPLOY_START_TIME;
         highestAmountOfArrowsAtOnce = 0;
         amountOfArrowsCreated = 0;
+        arrowDamage = 6;
         
         rand = new Random();
         arrowTextures = image.split(16, 16);
@@ -81,6 +83,8 @@ public class ArrowGenerator extends GameObject {
             currentDeployTime -= 0.1;
             if (currentDeployTime < ARROW_DEPLOY_END_TIME) currentDeployTime = ARROW_DEPLOY_END_TIME;
         }
+        int modifier2 = (handler.getGameState().getTimer().getTime() - 400) / 60;
+        arrowDamage = 6 + modifier2;
     }
     
     private void addArrow() {
@@ -116,5 +120,6 @@ public class ArrowGenerator extends GameObject {
     public Array<Arrow> getArrows() {return arrows;}
     public int getAmountOfArrowsCreated() {return amountOfArrowsCreated;}
     public int getHighestAmountOfArrowsAtOnce() {return highestAmountOfArrowsAtOnce;}
+    public int getArrowDamage() {return arrowDamage;}
     
 }

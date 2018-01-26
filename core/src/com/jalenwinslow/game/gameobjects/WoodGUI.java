@@ -18,17 +18,20 @@ public class WoodGUI extends GameObject {
     private TextureRegion[][] texture;
     private TextureRegion backTexture;
     
-    private Texture boundsTexture = new Texture("DodgeGame_boundsMask.png");
+    //private Texture boundsTexture = new Texture("DodgeGame_boundsMask.png");
+    
+    private int playerid;
     
     //--- Constructor
-    public WoodGUI(Handler handler, double x, double y, TextureRegion image) {
+    public WoodGUI(Handler handler, double x, double y, TextureRegion image, int playerid) {
         super(handler, x, y, image);
-        bounds = new Rectangle((int)x, (int)y, Main.WIDTH/5, Main.HEIGHT/20);
+        setGUIPosition(playerid);
         font = new BitmapFont(Gdx.files.internal("customFont4.fnt"));
         font.getData().setScale(3, 3);
         font.setColor(Color.WHITE);
         backTexture = new TextureRegion(handler.getGameState().getHealthTexture()).split(16, 4)[0][0];
         texture = image.split(16, 16);
+        this.playerid = playerid;
     }
     
     
@@ -41,18 +44,28 @@ public class WoodGUI extends GameObject {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(backTexture, bounds.x-bounds.width, bounds.y, bounds.width, bounds.height);
-        font.draw(batch, "x " + handler.getGameState().getPlayer().getWood(), bounds.x-64, bounds.y+Main.HEIGHT/20, 0, Align.left, false);
+        font.draw(batch, "x " + handler.getPlayers().getPlayer(playerid).getWood(), bounds.x-64, bounds.y+Main.HEIGHT/20, 0, Align.left, false);
         batch.draw(texture[0][0], bounds.x-bounds.width+16, bounds.y-4, Main.WIDTH/16, Main.HEIGHT/16);
     }
     
     @Override
     public void dispose() {
         font.dispose();
-        boundsTexture.dispose();
+        //boundsTexture.dispose();
     }
     
     @Override
     public String toString() {return "WoodGUI";}
+    
+    private void setGUIPosition(int playerid) {
+        switch (playerid) {
+            case 1: bounds = new Rectangle((int)(Main.WIDTH/5), (int)(Main.HEIGHT-Main.HEIGHT/20), Main.WIDTH/5, Main.HEIGHT/20); break;
+            case 2: bounds = new Rectangle((int)(Main.WIDTH), (int)(Main.HEIGHT-Main.HEIGHT/20), Main.WIDTH/5, Main.HEIGHT/20); break;
+            case 3: bounds = new Rectangle((int)(Main.WIDTH/5), (int)0, Main.WIDTH/5, Main.HEIGHT/20); break;
+            case 4: bounds = new Rectangle((int)(Main.WIDTH), (int)0, Main.WIDTH/5, Main.HEIGHT/20); break;
+            default: bounds = new Rectangle();
+        }
+    }
     
     //--- Getters and Setters
     

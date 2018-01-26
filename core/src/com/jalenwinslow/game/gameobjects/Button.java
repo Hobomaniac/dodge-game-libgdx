@@ -15,13 +15,13 @@ import com.jalenwinslow.game.states.State;
 public class Button extends GameObject {
     
     //--- Propreties
-    private TextureRegion[][] images;
-    private BitmapFont font;
-    private String message;
-    private int imageIndex;
-    private boolean drawHealth;
-    private HealthBar health;
-    private int hitPoints;
+    protected TextureRegion[][] images;
+    protected BitmapFont font;
+    protected String message;
+    protected int imageIndex;
+    protected boolean drawHealth;
+    protected HealthBar health;
+    protected int hitPoints;
     
     //--- Constructor
     public Button(Handler handler, double x, double y, TextureRegion image, String message, int scale) {
@@ -43,12 +43,12 @@ public class Button extends GameObject {
     //--- Methods
     @Override
     public void update(float dt) {
-        //checkIfMouseWithin();
-        checkPlayerCollision();
+        if (toString().equals("Button")) checkPlayerCollision();
         if (hitPoints < 0) {hitPoints = 0;}
         health.setHealth(hitPoints);
         if (hitPoints >= 60) {
             buttonAction();
+            hitPoints = 0;
         }
     }
     
@@ -72,31 +72,59 @@ public class Button extends GameObject {
             State.setCurrenState(handler.getGameState());
             handler.getGameObjectHandler().dispose();
             handler.getGameState().init();
+            handler.getPlayers().resetPlayers();
             handler.getMenuState().dispose();
         } else if (message.equalsIgnoreCase("Stats")) {
             handler.getMenuState().setSubState(1);
+            handler.getPlayers().centerPlayers();
         } else if (message.equalsIgnoreCase("Exit")) {
             State.setCurrenState(handler.getExitState());
             handler.getGameObjectHandler().dispose();
             State.getCurrentState().init();
             handler.getMenuState().dispose();
+        } else if (message.equalsIgnoreCase("multi-\nplayer")) {
+            handler.getMenuState().setSubState(2);
+            handler.getPlayers().centerPlayers();
         } else if (message.equalsIgnoreCase("back")) {
-            handler.getMenuState().setSubState(0);
+            int subState = handler.getMenuState().getSubState();
+            if (subState == 1 || subState == 2)
+                handler.getMenuState().setSubState(0);
+            else if (subState == 3) {
+                handler.getMenuState().setSubState(2);
+            }
+            handler.getPlayers().centerPlayers();
+        } else if (message.equalsIgnoreCase("Player 1")) { //Player 1 controls
+            handler.getMenuState().setSubState(3);
+            handler.getPlayers().centerPlayers();
+        } else if (message.equalsIgnoreCase("Player 2")) { //Player 2 controls
+            handler.getMenuState().setSubState(3);
+            handler.getPlayers().centerPlayers();
+        } else if (message.equalsIgnoreCase("Player 3")) { //Player 3 controls
+            handler.getMenuState().setSubState(3);
+            handler.getPlayers().centerPlayers();
+        } else if (message.equalsIgnoreCase("Player 4")) { //Player 4 controls
+            handler.getMenuState().setSubState(3);
+            handler.getPlayers().centerPlayers();
         }
     }
     
-    private void checkPlayerCollision() {
-        if (bounds.overlaps(handler.getMenuState().getPlayer().getBounds())) {
-            drawHealth = true;
-            imageIndex = 1;
-            if (Gdx.input.isKeyPressed(Keys.E)) {
-                hitPoints++;
-            } else {hitPoints--;}
-        } else {
-            drawHealth = false;
-            imageIndex = 0;
-            hitPoints--;
+    protected void checkPlayerCollision() {
+        drawHealth = false;
+        imageIndex = 0;
+        int addHitPoints = 0;
+        for (int i = 0; i < handler.getPlayers().getNumOfPlayers(); i++) {
+            if (handler.getPlayers().getPlayer(i+1) == null) continue;
+            if (bounds.overlaps(handler.getPlayers().getPlayer(i+1).getBounds())) {
+                drawHealth = true;
+                imageIndex = 1;
+                if (handler.getPlayers().getPlayer(i+1).getActionPressed()) {
+                    addHitPoints += 1;
+                }
+            }
         }
+        if (addHitPoints != 0) {
+            hitPoints += addHitPoints;
+        } else hitPoints--;
     }
     
     //--- Getters and Setters

@@ -5,11 +5,20 @@ wood walls to help you survive longer.
 
 Controls
 --------
-W, A, S, D = Up, Left, Down, Right
-E -> Hold down to destroy wood or build walls. (In menu, you use it to select choices.)
-Space -> When you have 7 pieces of wood you can create a wall.
+1st Player Controls.
+	W, A, S, D = Up, Left, Down, Right
+	E -> Hold down to destroy wood or build walls. (In menu, you use it to select choices.)
+	Space -> When you have 7 pieces of wood you can create a wall.
+	Q -> Give wood to other player if standing near them.
+2nd Player Controls.
+	Up, Down, Left, Right Arrow Keys = Up, Down, Left, Right
+	Right Control(ctrl) = hold down to destroy wood or build walls. (In menu, you use it to select choices.)
+	Right Shift = When you have 7 pieces of wood you can create a wall
+	End (button) = Give wood to other player if standing near them.
+
+Press the num 2 in main menu to add TWO players.
 --------
 
-There is an executable in "/built_game". Latest build DodgeGame_1.2.jar.
+There is an executable in "/built_game". Latest build DodgeGame_1.3.jar.
 
 Created using libgdx.

@@ -78,8 +78,17 @@ public class ShortWall extends Wall {
         switch (state) {
             case creation:
                 elapsedTime += dt;
-                if (!noPlayerBounds.overlaps(handler.getGameState().getPlayer().getBoundsFeet())) {
-                    bounds = new Rectangle(noPlayerBounds);
+                if (bounds.area() != noPlayerBounds.area()) {
+                    boolean check = true;
+                    for (Player player : handler.getPlayers().getPlayers()) {
+                        if (noPlayerBounds.overlaps(player.getBoundsFeet())) {
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check) {
+                        bounds = new Rectangle(noPlayerBounds);
+                    }
                 }
                 if (elapsedTime >= 0.25 && timer <= 2) {
                     timer += 0.25;
@@ -89,7 +98,7 @@ public class ShortWall extends Wall {
                 }
                 if (timer > 2) {
                     alpha = 1;
-                    if (bounds == null) {
+                    if (bounds.area() == 0) {
                         bounds = new Rectangle((int)x, (int)y, Main.WIDTH/10, Main.HEIGHT/10);
                     }
                     deathBounds = new Rectangle((int)x+8, (int)y+8, Main.WIDTH/10-16, Main.HEIGHT/10-16);
@@ -105,7 +114,22 @@ public class ShortWall extends Wall {
                 if (hitPoints <= 0) {
                     for (int i = 0; i < handler.getGameObjectHandler().getGameObjects().size; i++) {
                         if (handler.getGameObjectHandler().getGameObjects().get(i).equals(this)) {
-                            handler.getGameState().getPlayer().setWood(handler.getGameState().getPlayer().getWood()+2);
+                            Player[] players = new Player[handler.getPlayers().getPlayers().size];
+                            int numOfWood = 2;
+                            int numOfPeople = 0;
+                            for (int p = 1; p <= players.length; p++) {
+                                if (showHealthBounds.overlaps(handler.getPlayers().getPlayer(p).getBoundsFeet()) && 
+                                        !handler.getPlayers().getPlayer(p).isDead()) {
+                                    players[p-1] = handler.getPlayers().getPlayer(p);
+                                    numOfPeople++;
+                                }
+                            }
+                            if (numOfPeople >= 2) numOfWood = 1;
+                            for (int p = 1; p <= players.length; p++) {
+                                if (players[p-1] != null) {
+                                    handler.getPlayers().getPlayer(p).setWood(handler.getPlayers().getPlayer(p).getWood() + numOfWood);
+                                }
+                            }
                             handler.getGameState().getGrid().setFree(true, (int)(x / handler.getGameState().getGrid().getAreaWidth()), (int)(y / handler.getGameState().getGrid().getAreaHeight()));
                             handler.getGameState().getWallGen().setHighestNumberOfShortWallsDestroyed(handler.getGameState().getWallGen().getHighestNumberOfShortWallsDestroyed() + 1);
                             handler.getGameObjectHandler().getGameObjects().removeValue(this, false);
@@ -148,14 +172,15 @@ public class ShortWall extends Wall {
     }
     
     private void boundCollisions() {
-        if (deathBounds.overlaps(handler.getGameState().getPlayer().getBoundsFeet())) {
-            handler.getGameState().getTimer().stop();
-            State.setCurrenState(handler.getGameOverState());
-            State.getCurrentState().init();
-            handler.getGameObjectHandler().dispose();
-            handler.getGameState().dispose();
+        drawHealth = false;
+        for (Player player : handler.getPlayers().getPlayers()) {
+            if (deathBounds.overlaps(player.getBoundsFeet())) {
+                player.setDead(true);
+            }
+            if (showHealthBounds.overlaps(player.getBoundsFeet())) {
+                drawHealth = true;
+            }
         }
-        drawHealth = (showHealthBounds.overlaps(handler.getGameState().getPlayer().getBoundsFeet()));
     }
     
     //--- Getters and Setters

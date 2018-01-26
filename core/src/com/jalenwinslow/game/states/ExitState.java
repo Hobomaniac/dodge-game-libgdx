@@ -58,6 +58,7 @@ public class ExitState extends State {
     public void dispose() {
         font.dispose();
         texture.dispose();
+        handler.getPlayers().dispose();
     }
     
     //--- Getters and Setters

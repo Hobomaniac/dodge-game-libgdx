@@ -15,6 +15,7 @@ public class Arrow extends GameObject {
     public static final double MIN_SPEED = 2.5; //normal -> maxSpeed: 4 && minSpeed: 2.5
     
     private int dir;
+    private int damage;
     private double speed;
     private double vecX, vecY;
     //private static Texture boundsTexture = new Texture("DodgeGame_boundsMask.png");
@@ -23,6 +24,7 @@ public class Arrow extends GameObject {
     public Arrow(Handler handler, double x, double y, TextureRegion image, int dir) {
         super(handler, x, y, image);
         this.dir = dir;
+        this.damage = handler.getGameState().getArrowGen().getArrowDamage();
         speed = MIN_SPEED;
         vecX = 0;
         vecY = 0;
@@ -82,18 +84,21 @@ public class Arrow extends GameObject {
     }
     
     private void checkCollision() {
-        if (bounds.overlaps(handler.getGameState().getPlayer().getBounds())) {
-            handler.getGameState().getTimer().stop();
-            State.setCurrenState(handler.getGameOverState());
-            State.getCurrentState().init();
-            handler.getGameObjectHandler().dispose();
-            handler.getGameState().dispose();
+        
+        for (int i = 1; i <= handler.getPlayers().getPlayers().size; i++) {
+            if (bounds.overlaps(handler.getPlayers().getPlayer(i).getBounds())) {
+                if (!handler.getPlayers().getPlayer(i).isDead()) {
+                   handler.getGameState().getArrowGen().getArrows().removeValue(this, false);
+                    handler.getPlayers().getPlayer(i).setHitPoints(0);
+                }
+                handler.getPlayers().getPlayer(i).setDead(true);
+            }
         }
         for (int i = 0; i < handler.getGameObjectHandler().getGameObjects().size; i++) {
             if (handler.getGameObjectHandler().getGameObjects().get(i).toString().equalsIgnoreCase("TallWall")) {
                 TallWall wall = (TallWall)handler.getGameObjectHandler().getGameObjects().get(i);
                 if (bounds.overlaps(wall.getNoArrowBounds())) {
-                    wall.setHitPoints(wall.getHitPoints() - 6);
+                    wall.setHitPoints(wall.getHitPoints() - damage);
                     handler.getGameState().getArrowGen().getArrows().removeValue(this, false);
                 }
             }
